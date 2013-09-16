@@ -1,0 +1,12 @@
+
+exportPattern("^[^\\.]")
+
+importClassesFrom("rsbml", "Model", "Compartment", "Species", "SpeciesReference", "Reaction")
+importFrom("rsbml", "id")
+importFrom("rsbml", "name")
+importFrom("rsbml", "species")
+importFrom("LIM", "Linp")
+importFrom("hypergraph", "DirectedHyperedge")
+importFrom("hypergraph", "Hypergraph")
+importFrom("hyperdraw", "graphBPH")
+
