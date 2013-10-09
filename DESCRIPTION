@@ -1,8 +1,8 @@
 Package: BiGGR
 Type: Package
 Title: Creates an interface to the BiGG database, provides a framework for simulation and produces flux graphs
-Version: 0.99.2
-Date: 2013-08-05
+Version: 0.99.3
+Date: 2013-10-09
 Author: Anand K. Gavai, Hannes Hettling
 Maintainer: Anand K. Gavai <anand.gavai@bioinformatics.nl>, Hannes Hettling <j.hettling@vu.nl>
 Depends: R (>= 2.14.0), rsbml, hyperdraw, LIM
@@ -11,7 +11,7 @@ Description: This package provides an interface to simulate metabolic reconstruc
 	     from the BiGG database(http://bigg.ucsd.edu/) and other metabolic reconstruction 
 	     databases. The package aids in performing flux balance analysis (FBA). Metabolic 
 	     networks and estimated fluxes can be visualized using hypergraphs.
-License: GPL (>=2)
+License: file LICENSE
 URL: http://www.bioconductor.org/
 Copyright: see inst/COPYRIGHTS for the license of the BiGG database
 biocViews: NetworkAnalysis, Visualization, Metabolomics
