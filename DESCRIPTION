@@ -1,7 +1,7 @@
 Package: BiGGR
 Type: Package
 Title: Creates an interface to the BiGG database, provides a framework for simulation and produces flux graphs
-Version: 0.99.3
+Version: 1.0.0
 Date: 2013-10-09
 Author: Anand K. Gavai, Hannes Hettling
 Maintainer: Anand K. Gavai <anand.gavai@bioinformatics.nl>, Hannes Hettling <j.hettling@vu.nl>
