@@ -12,7 +12,8 @@ getRates(modelFile)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{modelFile}{A model file as generated from the createBiggModel function}
+  \item{modelFile}{The path to a LIM model file as generated for
+    instance from the functions \code{createLIMFromBiGG} or \code{createLIMFromSBML}}
 }
 
 \value{The value returned is one dimentional numeric vector of flux rates for each reaction }

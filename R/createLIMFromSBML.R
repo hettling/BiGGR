@@ -5,7 +5,7 @@
 # constraints is a character string in the format for example "[0,1000]" where 0 is the minimal and 1000 is maximum
 # externals is a character vector provided by user
 
-createLIMFromSBML <- function(model, maximize, equations=NULL, constraints=NULL, externals=NULL, file.name="model.lim"){  
+createLIMFromSBML <- function(model, maximize, equations=NULL, inequalities=NULL, constraints=NULL, externals=NULL, file.name="model.lim"){  
   ##REACTIONS
   extract.eq <- function(r){
     reacts <- sapply(r@reactants, function(p)p@species)
@@ -55,7 +55,7 @@ createLIMFromSBML <- function(model, maximize, equations=NULL, constraints=NULL,
   ##EQUATIONS
   if (hasArg(equations)){
     if (length(equations) != 2){
-      warning("Warning: 'equations' argument must be a list of length three. See ?createLIMFromSBML for details!\n")
+      warning("Warning: 'equations' argument must be a list of length two. See ?createLIMFromSBML for details!\n")
     } else {
       write("###   EQUATIONS", file=file.name,append=TRUE)
       write(paste(equations[[1]], equations[[2]], sep=" = "), file=file.name, append=TRUE) 
@@ -63,7 +63,19 @@ createLIMFromSBML <- function(model, maximize, equations=NULL, constraints=NULL,
       write("\n\n", file=file.name, append=TRUE)              
     }
   }
-  
+
+  ##INEQUALITIES
+  if (hasArg(inequalities)){
+    if (length(inequalities) != 3){
+      warning("Warning: 'inequalities' argument must be a list of length three. See ?createLIMFromSBML for details!\n")
+    } else {
+      write("###   INEQUALITIES", file=file.name,append=TRUE)
+      write(paste(inequalities[[1]], inequalities[[2]], sep=inequalities[[3]]), file=file.name, append=TRUE) 
+      write("###   END INEQUALITIES", file=file.name, append=TRUE)     
+      write("\n\n", file=file.name, append=TRUE)              
+    }
+  }
+   
   ##COMPONENTS
   all.components <- as.vector(sapply(model@species, function(s)s@id))
   write("###   COMPONENTS", file=file.name, append=TRUE)    
@@ -76,7 +88,7 @@ createLIMFromSBML <- function(model, maximize, equations=NULL, constraints=NULL,
   ##Give warning if user-supplied externals are not in model
   if (!all(externals %in% all.components)){
     warning("Warning! Following metabolites provided in argument 'externals' are not in the metabolites of given model: ",
-        externals[which(!externals %in% all.components)], "\n")
+        paste(externals[which(!externals %in% all.components)], collapse=","), "\n")
   }
   
   ##EXTERNALS

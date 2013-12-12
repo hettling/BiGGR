@@ -1,4 +1,3 @@
-
 \documentclass{article}
 
 \renewcommand{\thefigure}{\thesection-\arabic{figure}}
@@ -7,7 +6,7 @@
 \usepackage{chngcntr}
 \usepackage{hyperref}
 \usepackage{url}
-
+\usepackage{placeins}
 %Make section number before figure number.
 
 \counterwithout{figure}{section}
@@ -22,8 +21,6 @@
 
 
 \begin{document}
-
-
 
 
 %\setkeys{Gin}{width=0.6\textwidth}
@@ -122,12 +119,12 @@ There are several ways to create a model within BiGGR:
 Below we will demonstrate how to build an SBML model from a set of reaction 
 identifiers using the Recon 1 database. The list of reaction IDs can be found 
 in the extdata subdirectory in the package. The model comprises the 
-reactions of glycolysis and TCA cycle \cite{VanBeek2011}:
+reactions of glycolysis, pentose-phosphate pathway and TCA cycle \cite{VanBeek2011}:
 
 <<h, eval=TRUE, echo=TRUE>>=
 ##load reaction identifiers from package examples
 file.name <- system.file("extdata", 
-                         "Glycolysis_TCA_recon1_reactionIDs.txt", 
+                         "brainmodel_reactions.txt", 
                          package="BiGGR")
 reaction.ids <- scan(file.name, what=" ")
 
@@ -139,70 +136,171 @@ sbml.model <- buildSBMLFromReactionIDs(reaction.ids, H.sapiens_Recon_1)
 @ 
 
 The model object \verb|sbml.model| is an rsbml object of class \verb|Model|. 
-It has 80 metabolites participating in 63 reactions in 3 compartments.
+It has 92 metabolites participating in 73 reactions in 3 compartments.
 
 \subsection{Specify constraints, optimization objective and estimate fluxes}
-After building the model, we will specify the additional parameters necessary 
+After building the model, we specify additional parameters necessary 
 to run the flux estimation. In the present model, several metabolites are unbalanced 
 because not all the biochemical reactions involving them are represented inside the model. 
 Another unbalanced situation is when metabolites accumulate inside or outside 
 the cell. These metabolites must therefore not be subjected to the equality 
-constraint of the linear programming routine for flux estimation. These 
-metabolites are termed external metabolites or, in short, externals. Next we 
-specify the term to be maximized. Additional equality constraints are given 
-in list form in the variable eqns as well as bounded constraints for 
-specific reaction fluxes (variable constraints). Finally a temporary LIM
-model file  is created using the function \verb|createLIMFromSBML|.
-
+constraints (i.e. the steady state constraint) of the linear programming routine for flux estimation. These 
+metabolites are termed external metabolites or, in short, externals.  
+The objective of this flux balance analysis is to maximize 
+the net ATP production in the reaction network given the constraints in the model. Note 
+that, of course, also minimizing a linear function of fluxes in the model is possible in 
+BiGGR ('loss' function as opposed to 'profit' function).
+Below we specify the objective function and the external metabolites. 
 
 <<i, eval=TRUE, echo=TRUE, results=hide>>=
 ##following term is to be maximized
 maximize <- "R_ATPS4m - R_NDPK1m - R_HEX1 - R_PFK - R_PGK + R_PYK"
 
 ##specify the external metabolites of the system
-externals <- c("M_glc_DASH_D_e", "M_lac_DASH_L_e",
-               "M_ala_DASH_L_e", "M_gln_DASH_L_c", "M_h2o_e",
-               "M_co2_e", "M_o2_e", "M_h_e", "M_pi_c",
-               "M_o2s_m", "M_nh4_m", "M_adp_c",
-               "M_atp_c", "M_nadp_c", "M_nadph_c", "M_h_c")
-##specify the values of following fluxes: 
-##R_GLCt1r=0.4, R_O2t=2.4, R_L_LACt2r=R_GLNtm=0
+externals <- c("M_glc_DASH_D_e", "M_lac_DASH_L_e", "M_ala_DASH_L_e",
+               "M_gln_DASH_L_e", "M_h2o_e", "M_co2_e",
+               "M_o2_e", "M_h_e", "M_o2s_m",
+               "M_adp_c", "M_atp_c", "M_pi_c",
+               "M_h_c", "M_nadp_c", "M_nadph_c",
+               "M_na1_c", "M_na1_e", "M_gln_DASH_L_c",
+               "M_nh4_c", "M_pyr_e")
+@ 
 
-equation.vars <- c("R_GLCt1r", "R_O2t", "R_L_LACt2r", "R_GLNtm")
-equation.values <- c(0.4, 2.4, 0.0, 0.0)
+Additional equality and inequality constraints can be given for fluxes for which the values
+are known beforehand, e.g. if they rely on experimental measurements. Below we use
+measurements of cerebral metabolic substrate uptake and release rates in human brain \cite{Lying-Tunell1980}. 
+The total oxygen uptake rate is constrained to be not higher than six times glucose uptake rate 
+according to the balance equation of aerobic respiration.
+Equality and inequality constraints are given as lists in the variables \verb|eqns| and \verb|ineq|. 
+Finally a LIM model file  is created using the function \verb|createLIMFromSBML|.
+
+
+<<eq_ineq, eval=TRUE, echo=TRUE, results=hide>>=
+
+##equality constraints
+equation.vars <- c("R_GLCt1r", "R_L_LACt2r", "R_GLNtN1", 
+                   "R_PYRt2r", "R_GLUDC", "R_G6PDH2r")
+equation.values <- c(0.2842,-0.01288,-0.0154,
+                     -0.00336,0.11368,0.0196098)
 eqns <- list(equation.vars, equation.values)
 
-##create LIM file which is written to the
-##hard disk in the system's temporary directory
+##inequality constraint: R_O2t is smaller or equal to 6 * R_GLCt1r
+inequalities <- list("R_O2t", "6 * R_GLCt1r", "<=")
+
+##write LIM file to system's temporary directory
 limfile.path <- tempfile()
-createLIMFromSBML(sbml.model, maximize, equations=eqns,
+createLIMFromSBML(sbml.model, maximize, equations=eqns, 
+                  inequalities=inequalities,
                   externals=externals, file.name=limfile.path)
 @ 
 
 \subsection{Running simulations to estimate fluxes}
 \label{calc_fluxes}
 BiGGR uses Linear Inverse Models for estimating the fluxes as provided 
-by the LIM package from Bioconductor. All the functionality of this package can 
-be used in this framework. For example LIM contains a function \verb|xsample| to generate ensembles 
-of feasible fluxes using Markov chain Monte Carlo methods. The function \verb|lsei| in LIM provides 
+by LIM. All the functionality of this package can 
+be used in this framework. The function \verb|lsei| in LIM provides 
 least squares estimation with equalities and inequalities which is useful to fit the model 
 to biochemical measurements of metabolite exchange.
-The interface for some of the key functions provided by BiGGR is \verb|getRates|
-which takes the model file as an input parameter to estimate fluxes which finds the solution where 
-one linear function (i.e. the sum of unknowns) is either 
-minimized (a "cost" function) or maximized (a "profit" function).
+The interface to LIM's  \verb|lsei| in BiGGR is \verb|getRates|
+which takes the model file (or a LIM object) as an input parameter to estimate 
+the fluxes with respect to the objective function.
 
 <<j, eval=TRUE, echo=TRUE, results=hide>>=
 rates <- getRates(limfile.path)
 @ 
 
+\subsection{Sampling of feasible flux distributions}
+\label{sampling}
+Experimentally quantified fluxes are always subject to measurement error. 
+In the above example, the rates for, among others glucose and glutamine uptake (R\_GLCt1r and R\_GLUDC, respectively) and 
+uptake of lactate and pyruvate (R\_L\_LACt2r and R\_PYRt2r) were fixed.
+However, it is of interest how the estimated fluxes vary if 
+measurement error on the known fluxes is taken into account.
+BiGGR provides the functionality to calculate the uncertainty of
+all estimated fluxes by performing a random walk in the feasible flux space with a Markov chain Monte Carlo (MCMC) 
+method. To this end, BiGGR provides an interface to the \verb|xsample| function from the package limSolve \cite{DenMeersche09}.
+Ensembles of feasible flux vectors within the precision limits of the known fluxes can be sampled 
+with the function \verb|sampleFluxEnsemble|. As an example, we will sample an ensemble of 100000 flux vectors
+within the precision limits of the data \cite{Lying-Tunell1980} given as the standard deviation. Note that standard deviations 
+were only available for the first four fluxes that were fixed. Starting point for the random walk is the
+previously optimized flux vector. Note that for quicker convergence of the MCMC procedure, we set the 
+jump length manually (see \verb|?sampleFluxEnsemble| for details).
+
+<<random_seed, eval=TRUE, echo=FALSE, results=hide>>=
+set.seed(111)
+@ 
+
+<<sample_flux_ensemble, eval=TRUE, echo=TRUE, results=hide>>=
+##specify the fluxes with uncertainty given as SD in a data frame
+uncertain.vars <- data.frame(var=equation.vars[1:4],
+                             value=equation.values[1:4],
+                             sd=c(0.058,0.032,0.034,0.004))
+
+
+##sample feasible flux distributions with MCMC
+ensemble <- sampleFluxEnsemble(limfile.path, uncertain.vars,
+                               x0=rates, iter=100000, jmp=0.1)
+
+@ 
+
+The sampled posterior distributions can then simply be plotted as histograms as shown in figure 
+\ref{fig:hists_fluxes} for glucose uptake and lactate release.
+
+\setkeys{Gin}{width=\textwidth}
+\begin{figure}[htp!]
+  \begin{center}
+<<hists_fluxes, eval=TRUE, echo=TRUE, fig=TRUE, height=4, width=8>>=
+par(mfrow=c(1,2))
+hist(ensemble[,"R_GLCt1r"], 
+     xlab="flux (mmol/min)", main="R_GLCt1r")
+mtext(bquote(mu== ~.(round(mean(ensemble[,"R_GLCt1r"]),2)) 
+             ~ "," ~ sigma== ~.(round(sd(ensemble[,"R_GLCt1r"]),2))))
+hist(ensemble[,"R_L_LACt2r"], 
+     xlab="flux (mmol/min)", main="R_L_LACt2r")
+mtext(bquote(mu== ~.(round(mean(ensemble[,"R_L_LACt2r"]),2)) 
+             ~ "," ~ sigma== ~.(round(sd(ensemble[,"R_L_LACt2r"]),2))))
+@ 
+\end{center}
+\caption{\textit{Posterior distributions of the fluxes R\_GLCt1r and R\_L\_LACt2r after the sampling with Markov Chain Monte Carlo.}}
+  \label{fig:hists_fluxes}
+\end{figure}
+
+
+Furthermore, it is now possible to assess the effect of possible measurement error in R\_GLCt1r and R\_O2t on other fluxes
+present in the system. As an example, we calculate the net rate of ATP production for the whole ensemble from the linear flux 
+combination R\_ATPS4m - R\_NDPK1m - R\_HEX1 - R\_PFK - R\_PGK + R\_PYK. Note that the net ATP production was the 
+profit function of the flux balance analysis presented above. 
+
+\setkeys{Gin}{width=0.8\textwidth} 
+\begin{figure}[htp!]
+  \begin{center}
+<<hists_atp, eval=TRUE, echo=TRUE, fig=TRUE, height=4, width=4>>=
+##calculate net ATP production for each flux vector in the ensemble
+atp.prod.ens <- eval(parse(text=maximize), envir=data.frame(ensemble))
+hist(atp.prod.ens, 
+     xlab="ATP production (mmol/min)", main="Net ATP production")
+mtext(bquote(mu== ~.(round(mean(atp.prod.ens),2)) 
+             ~ "," ~ sigma== ~.(round(sd(atp.prod.ens),2))))
+@ 
+\end{center}
+\caption{\textit{Posterior distribution of net ATP production rate in the model.}}
+  \label{fig:hists_atp}
+\end{figure}
+
+Figure \ref{fig:hists_atp} shows the spread of the rates of net ATP production given the variability in the 
+measured input fluxes.  
+In this way, the uncertainty of the objective function value can
+be investigated with respect to possible measurement noise of the fluxes in the model.
+
+\FloatBarrier
 \subsection{Visualization of networks and fluxes}
+
 BiGGR provides visualization using hypergraphs. 
-To this end, BiGGR uses the BioConductor package hyperdraw which in turn 
+To this end, BiGGR uses the package hyperdraw which in turn 
 uses the Graphviz engine. 
 Hypergraphs are graphs which can connect multiple nodes by one edge. 
 Metabolites are represented by nodes and reactions are represented by edges 
-connecting the nodes. The flow rates (fluxes) of the biochemical reactions can be 
+connecting the nodes. The fluxes of the biochemical reactions can be 
 represented by the width of the edges (a wider edge corresponds to a higher 
 flux value).
 An SBML model can be converted into a hyperdraw object using the function \verb|sbml2hyperdraw|. Since 
@@ -220,9 +318,13 @@ relevant.species <- c("M_glc_DASH_D_c", "M_g6p_c", "M_f6p_c",
                       "M_fdp_c", "M_dhap_c", "M_g3p_c", 
                       "M_13dpg_c", "M_3pg_c", "M_2pg_c", 
                       "M_pep_c", "M_pyr_c")
+relevant.reactions <- c("R_HEX1", "R_PGI", "R_PFK", "R_FBA", 
+                        "R_TPI", "R_GAPD", "R_PGK", "R_PGM", 
+                        "R_ENO", "R_PYK")
 
 hd <- sbml2hyperdraw(sbml.model, rates=rates, 
                      relevant.species=relevant.species, 
+                     relevant.reactions=relevant.reactions,
                      layoutType="dot", plt.margins=c(20, 0, 20, 0))
 @ 
 
@@ -237,7 +339,7 @@ plot(hd)
 \begin{figure}[ht!]
 
   \begin{center}
-<<figure1, eval=TRUE, echo=FALSE, fig=TRUE>>=
+<<fig_glyc, eval=TRUE, echo=FALSE, fig=TRUE>>=
 plot(hd)
 @ 
 \end{center}
@@ -277,9 +379,9 @@ plot(hd)
 @ 
 
 
-\begin{figure}[htp!]
+\begin{figure}[ht!]
   \begin{center}
-<<figure2, eval=TRUE, echo=FALSE, fig=TRUE>>=
+<<fig_tca, eval=TRUE, echo=FALSE, fig=TRUE>>=
 relevant.species <- c("M_cit_m", "M_icit_m" , "M_akg_m",
                       "M_succoa_m", "M_succ_m", "M_fum_m", 
                       "M_mal_DASH_L_m", "M_oaa_m") 
@@ -291,7 +393,7 @@ relevant.reactions <- c("R_CSm", "R_ACONTm", "R_ICDHxm",
 hd <- sbml2hyperdraw(sbml.model, rates=rates,
                      relevant.reactions=relevant.reactions,
                      relevant.species=relevant.species,
-                     layoutType="circo", plt.margins=c(150, 235, 150, 230))
+                     layoutType="circo", plt.margins=c(50, 270, 150, 230))
 plot(hd)
 @ 
 \end{center}

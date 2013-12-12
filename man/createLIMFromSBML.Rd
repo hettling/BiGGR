@@ -7,7 +7,7 @@
 
 \description{creates a model file to be run for simulations of metabolic fluxes}
 
-\usage{createLIMFromSBML(model, maximize, equations=NULL,
+\usage{createLIMFromSBML(model, maximize, equations=NULL, inequalities=NULL,
             constraints=NULL, externals=NULL, file.name="model.lim")}
 
 \arguments{
@@ -25,6 +25,17 @@
     \code{character} or \code{mumeric} with the right hand side(s) of
     the equation(s). See also 'examples'.
   }
+  \item{inequalities}{
+    a \code{list} specifying inequality constraints on the system.
+    The list must have three entries, the first one being a
+    vector of class \code{character} containing the left hand side(s) of
+    the inequality equation(s), the second one being a vector of type
+    \code{character} or \code{mumeric} with the right hand side(s) of
+    the inequality equation(s) and the third one being a vector of class
+    \code{character} containing the relational operator of the
+    inequality equations, for example \code{">"} or \code{"<="}. See
+    also 'examples'.
+    }
   \item{constraints}{
     a \code{list} specifying constrained on the solution space of the
     flux vector. The list must have three entries, the first one being
@@ -72,7 +83,9 @@ eqns <- list(equation.vars, equation.values)
 constraints <- list(c("R_GLCt1r", "R_CYOOm3"), c(-1000, -1000), c(1000, 1000)) 
 limfile.name <- tempfile()
 createLIMFromSBML(sbml.model, maximize, equations=eqns,
-                  constraints=constraints, externals=externals, file.name=limfile.name)
+                  inequalities=list("R_O2t", 2.4, "<="),
+                  constraints=constraints, externals=externals,
+                  file.name=limfile.name)
 
 }
 \keyword{Linear Inverse Models}
