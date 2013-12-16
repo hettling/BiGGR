@@ -1,13 +1,13 @@
 sampleFluxEnsemble <- function(model, uncertain.vars=NULL, iter=3000, ...){
   lim <- NULL
   if (class(model) == "character"){
-    lim <- LIM:::Setup.limfile(model)
+    lim <- Setup(model)
   } else if (class(model) == "lim"){
     lim <- model
   } else if (class(model) == "Model"){
     limfile.path <- tempfile()
     createLIMFromSBML(model, file.name=limfile.path)
-    lim <- LIM:::Setup.limfile(limfile.path)
+    lim <- Setup(limfile.path)
   }
   if (is.null(uncertain.vars)){
     Xsample(lim, ...)
