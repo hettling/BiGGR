@@ -2,7 +2,7 @@
 \title{NEWS file for the BiGGR package}
 \encoding{UTF-8}
 
-\section{Changes in version 1.1.2}{
+\section{Changes in version 1.1.3}{
   \itemize{
     \item Updated vignette and bibtex file. FBA and ensemble sampling
     are now done with integration of brain metabolite uptake measurement
