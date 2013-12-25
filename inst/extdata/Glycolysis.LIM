@@ -1,0 +1,81 @@
+
+*** Glycolysis and Pentose phosphate Model ***
+***             
+
+require(LIM)
+
+lim1 <-Setup("Glycolysis.lim")
+LPS <-Ldei(lim1)
+LPS
+
+LP<-Linp(lim1)
+LP
+
+
+##############################################
+
+## REACTIONS
+R_HEX1 : atp + glcD -> adp + g6p + h
+R_PGI :   g6p <-> f6p
+R_PFK : atp + f6p -> adp + fdp + h	 
+R_FBA : fdp <-> dhap + g3p	     
+R_TPI : dhap <-> g3p	   
+R_GAPD : g3p + nad + pi <-> 13dpg + h + nadh
+R_PGK : 3pg + atp <-> 13dpg + adp
+R_PGM : 2pg <-> 3pg	  
+R_ENO : 2pg <-> h2o + pep
+R_PYK : adp + h + pep -> atp + pyr	   
+ 
+### END REACTION
+
+
+## MAXIMISE
+maxR_PYK  : R_PYK    
+## END MAXIMISE
+
+###CONSTRAINTS
+ R_PYK= [0,1000]
+ ###END CONSTRAINTS
+
+
+
+## EQUATIONS
+R_HEX1  = 1
+### END EQUATIONS
+
+
+### COMPONENTS
+g6p	   
+f6p	   
+fdp
+dhap
+g3p
+13dpg
+3pg
+2pg	     
+pep	   
+### END COMPONENTS
+
+### EXTERNALS
+glcD
+h
+nad
+nadh
+pi
+fad
+fadh2  
+h2o	   	    	      
+adp	
+atp	   
+pyr
+nadp
+co2
+o2
+gdp
+gtp
+### END EXTERNALS
+
+
+
+
+

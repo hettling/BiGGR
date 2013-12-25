@@ -1,0 +1,199 @@
+###   REACTION
+R_GLCt1r : M_glc_DASH_D_e <-> M_glc_DASH_D_c
+R_HEX1 : M_atp_c + M_glc_DASH_D_c -> M_adp_c + M_g6p_c + M_h_c
+R_PGI : M_g6p_c <-> M_f6p_c
+R_PFK : M_atp_c + M_f6p_c -> M_adp_c + M_fdp_c + M_h_c
+R_FBA : M_fdp_c <-> M_dhap_c + M_g3p_c
+R_TPI : M_dhap_c <-> M_g3p_c
+R_GAPD : M_g3p_c + M_nad_c + M_pi_c <-> M_13dpg_c + M_h_c + M_nadh_c
+R_PGK : M_3pg_c + M_atp_c <-> M_13dpg_c + M_adp_c
+R_PGM : M_2pg_c <-> M_3pg_c
+R_ENO : M_2pg_c <-> M_h2o_c + M_pep_c
+R_PYK : M_adp_c + M_h_c + M_pep_c -> M_atp_c + M_pyr_c
+R_PYRt2m : M_h_c + M_pyr_c <-> M_h_m + M_pyr_m
+R_L_LACt2r : M_h_e + M_lac_DASH_L_e <-> M_h_c + M_lac_DASH_L_c
+R_LDH_L : M_lac_DASH_L_c + M_nad_c <-> M_h_c + M_nadh_c + M_pyr_c
+R_G6PDH2r : M_g6p_c + M_nadp_c <-> M_6pgl_c + M_h_c + M_nadph_c
+R_PGL : M_6pgl_c + M_h2o_c -> M_6pgc_c + M_h_c
+R_GND : M_6pgc_c + M_nadp_c -> M_co2_c + M_nadph_c + M_ru5p_DASH_D_c
+R_RPE : M_ru5p_DASH_D_c <-> M_xu5p_DASH_D_c
+R_RPI : M_r5p_c <-> M_ru5p_DASH_D_c
+R_TKT1 : M_r5p_c + M_xu5p_DASH_D_c <-> M_g3p_c + M_s7p_c
+R_TKT2 : M_e4p_c + M_xu5p_DASH_D_c <-> M_f6p_c + M_g3p_c
+R_TALA : M_g3p_c + M_s7p_c <-> M_e4p_c + M_f6p_c
+R_PDHm : M_coa_m + M_nad_m + M_pyr_m -> M_accoa_m + M_co2_m + M_nadh_m
+R_CSm : M_accoa_m + M_h2o_m + M_oaa_m -> M_cit_m + M_coa_m + M_h_m
+R_ACONTm : M_cit_m <-> M_icit_m
+R_ICDHxm : M_icit_m + M_nad_m -> M_akg_m + M_co2_m + M_nadh_m
+R_AKGDm : M_akg_m + M_coa_m + M_nad_m -> M_co2_m + M_nadh_m + M_succoa_m
+R_SUCOAS1m : M_coa_m + M_gtp_m + M_succ_m <-> M_gdp_m + M_pi_m + M_succoa_m
+R_SUCD1m : M_fad_m + M_succ_m <-> M_fadh2_m + M_fum_m
+R_FUMm : M_fum_m + M_h2o_m <-> M_mal_DASH_L_m
+R_MDHm : M_mal_DASH_L_m + M_nad_m <-> M_h_m + M_nadh_m + M_oaa_m
+R_ICDHyrm : M_icit_m + M_nadp_m <-> M_akg_m + M_co2_m + M_nadph_m
+R_ICDHy : M_icit_c + M_nadp_c -> M_akg_c + M_co2_c + M_nadph_c
+R_ACONT : M_cit_c <-> M_icit_c
+R_ME1m : M_mal_DASH_L_m + M_nad_m -> M_co2_m + M_nadh_m + M_pyr_m
+R_ME2m : M_mal_DASH_L_m + M_nadp_m -> M_co2_m + M_nadph_m + M_pyr_m
+R_CO2t : M_co2_e <-> M_co2_c
+R_CO2tm : M_co2_c <-> M_co2_m
+R_ASPTAm : M_akg_m + M_asp_DASH_L_m <-> M_glu_DASH_L_m + M_oaa_m
+R_ASPTA : M_akg_c + M_asp_DASH_L_c <-> M_glu_DASH_L_c + M_oaa_c
+R_MDH : M_mal_DASH_L_c + M_nad_c <-> M_h_c + M_nadh_c + M_oaa_c
+R_ASPGLUm : M_asp_DASH_L_m + M_glu_DASH_L_c + M_h_c <-> M_asp_DASH_L_c + M_glu_DASH_L_m + M_h_m
+R_AKGMALtm : M_akg_m + M_mal_DASH_L_c <-> M_akg_c + M_mal_DASH_L_m
+R_G3PD1 : M_glyc3p_c + M_nad_c <-> M_dhap_c + M_h_c + M_nadh_c
+R_G3PD2m : M_fad_m + M_glyc3p_c -> M_dhap_c + M_fadh2_m
+R_NDPK1m : M_atp_m + M_gdp_m <-> M_adp_m + M_gtp_m
+R_GLNtN1 : M_gln_DASH_L_e + M_h_c + 2 * M_na1_e <-> M_gln_DASH_L_c + M_h_e + 2 * M_na1_c
+R_GLNS : M_atp_c + M_glu_DASH_L_c + M_nh4_c -> M_adp_c + M_gln_DASH_L_c + M_h_c + M_pi_c
+R_GLNtm : M_gln_DASH_L_c -> M_gln_DASH_L_m
+R_GLUNm : M_gln_DASH_L_m + M_h2o_m -> M_glu_DASH_L_m + M_nh4_m
+R_GLUDym : M_glu_DASH_L_m + M_h2o_m + M_nadp_m <-> M_akg_m + M_h_m + M_nadph_m + M_nh4_m
+R_GLUt2m : M_glu_DASH_L_c + M_h_c <-> M_glu_DASH_L_m + M_h_m
+R_GLUDC : M_glu_DASH_L_c + M_h_c -> M_4abut_c + M_co2_c
+R_4ABUTtm : M_4abut_c <-> M_4abut_m
+R_ABTArm : M_4abut_m + M_akg_m <-> M_glu_DASH_L_m + M_sucsal_m
+R_SSALxm : M_h2o_m + M_nad_m + M_sucsal_m -> 2 * M_h_m + M_nadh_m + M_succ_m
+R_ALATA_L : M_akg_c + M_ala_DASH_L_c <-> M_glu_DASH_L_c + M_pyr_c
+R_ALAt2r : M_ala_DASH_L_e + M_h_e <-> M_ala_DASH_L_c + M_h_c
+R_H2Ot : M_h2o_e <-> M_h2o_c
+R_H2Otm : M_h2o_c <-> M_h2o_m
+R_ATPtm : M_adp_c + M_atp_m -> M_adp_m + M_atp_c
+R_PIt2m : M_h_c + M_pi_c <-> M_h_m + M_pi_m
+R_O2t : M_o2_e <-> M_o2_c
+R_O2tm : M_o2_c <-> M_o2_m
+R_NADH2_u10m : 5 * M_h_m + M_nadh_m + M_q10_m -> 4 * M_h_c + M_nad_m + M_q10h2_m
+R_CYOR_u10m : 2 * M_ficytC_m + 2 * M_h_m + M_q10h2_m -> 2 * M_focytC_m + 4 * M_h_c + M_q10_m
+R_CYOOm3 : 4 * M_focytC_m + 7.92 * M_h_m + M_o2_m -> 4 * M_ficytC_m + 4 * M_h_c + 1.96 * M_h2o_m + 0.02 * M_o2s_m
+R_ATPS4m : M_adp_m + 4 * M_h_c + M_pi_m -> M_atp_m + 3 * M_h_m + M_h2o_m
+R_ETF : M_etfox_m + M_fadh2_m -> M_etfrd_m + M_fad_m
+R_ETFQO : M_etfrd_m + M_q10_m -> M_etfox_m + M_q10h2_m
+R_CITtam : M_cit_c + M_mal_DASH_L_m <-> M_cit_m + M_mal_DASH_L_c
+R_PYRt2r : M_h_e + M_pyr_e <-> M_h_c + M_pyr_c
+### END REACTION
+
+
+
+### MAXIMISE
+R_ATPS4m - R_NDPK1m - R_HEX1 - R_PFK - R_PGK + R_PYK
+### END MAXIMISE
+
+
+
+###   EQUATIONS
+R_GLCt1r = 0.2842
+R_L_LACt2r = -0.01288
+R_GLNtN1 = -0.0154
+R_PYRt2r = -0.00336
+R_GLUDC = 0.11368
+R_G6PDH2r = 0.0196098
+###   END EQUATIONS
+
+
+
+###   INEQUALITIES
+R_O2t<=6 * R_GLCt1r
+###   END INEQUALITIES
+
+
+
+###   COMPONENTS
+M_glc_DASH_D_c
+M_g6p_c
+M_f6p_c
+M_fdp_c
+M_dhap_c
+M_g3p_c
+M_nad_c
+M_13dpg_c
+M_nadh_c
+M_3pg_c
+M_2pg_c
+M_h2o_c
+M_pep_c
+M_pyr_c
+M_h_m
+M_pyr_m
+M_lac_DASH_L_c
+M_6pgl_c
+M_6pgc_c
+M_co2_c
+M_ru5p_DASH_D_c
+M_xu5p_DASH_D_c
+M_r5p_c
+M_s7p_c
+M_e4p_c
+M_coa_m
+M_nad_m
+M_accoa_m
+M_co2_m
+M_nadh_m
+M_h2o_m
+M_oaa_m
+M_cit_m
+M_icit_m
+M_akg_m
+M_succoa_m
+M_gtp_m
+M_succ_m
+M_gdp_m
+M_pi_m
+M_fad_m
+M_fadh2_m
+M_fum_m
+M_mal_DASH_L_m
+M_nadp_m
+M_nadph_m
+M_icit_c
+M_akg_c
+M_cit_c
+M_asp_DASH_L_m
+M_glu_DASH_L_m
+M_asp_DASH_L_c
+M_glu_DASH_L_c
+M_oaa_c
+M_mal_DASH_L_c
+M_glyc3p_c
+M_atp_m
+M_adp_m
+M_gln_DASH_L_m
+M_nh4_m
+M_4abut_c
+M_4abut_m
+M_sucsal_m
+M_ala_DASH_L_c
+M_o2_c
+M_o2_m
+M_q10_m
+M_q10h2_m
+M_ficytC_m
+M_focytC_m
+M_etfox_m
+M_etfrd_m
+###   END COMPONENTS
+
+
+
+###   EXTERNALS
+M_glc_DASH_D_e
+M_lac_DASH_L_e
+M_ala_DASH_L_e
+M_gln_DASH_L_e
+M_h2o_e
+M_co2_e
+M_o2_e
+M_h_e
+M_o2s_m
+M_adp_c
+M_atp_c
+M_pi_c
+M_h_c
+M_nadp_c
+M_nadph_c
+M_na1_c
+M_na1_e
+M_gln_DASH_L_c
+M_nh4_c
+M_pyr_e
+###   END EXTERNALS
