@@ -1,4 +1,3 @@
-
 buildSBMLFromBiGG <- function(reactions.filename, model.id=character(0), model.name=character(0)){
   tab <- read.delim(reactions.filename, header=TRUE, sep="\t")
   
@@ -45,7 +44,7 @@ buildSBMLFromBiGG <- function(reactions.filename, model.id=character(0), model.n
     products <- as.vector(sapply(products, function(x)gsub("\\s", "", gsub("\\(.+?\\)", "", x))))
     
     
-    ##Assign compartment to each reactant and product if it is not yet assigned to all reactants and products
+    ##Assign compartment to each reactant and product if it is not yet assigned
     if (length(compartments)==1 & length(reactants) + length(products)>0) 
       compartments <- rep(compartments, length(reactants) + length(products))
     
