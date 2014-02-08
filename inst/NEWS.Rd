@@ -2,6 +2,14 @@
 \title{NEWS file for the BiGGR package}
 \encoding{UTF-8}
 
+\section{Changes in version 1.1.4}{
+  \itemize{
+    \item Updated vignette. Equality constraints on GABA shunt and
+    pentose phosphate pathway fluxes are now used in FBA and ensemble
+    simulations.
+  }
+}
+
 \section{Changes in version 1.1.3}{
   \itemize{
     \item Updated vignette and bibtex file. FBA and ensemble sampling
