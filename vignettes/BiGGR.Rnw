@@ -6,7 +6,7 @@
 \usepackage{chngcntr}
 \usepackage{hyperref}
 \usepackage{url}
-\usepackage{placeins}
+%\usepackage{placeins}
 %Make section number before figure number.
 
 \counterwithout{figure}{section}
@@ -346,7 +346,7 @@ The spread in the rates of net ATP production is given in the last histogram in 
 In this way, the uncertainty of the objective function value can
 be investigated with respect to possible measurement noise of the fluxes in the model.
 
-\FloatBarrier
+%\FloatBarrier
 \subsection{Visualization of networks and fluxes}
 
 BiGGR provides visualization using hypergraphs. 
@@ -395,7 +395,7 @@ plot(hd)
 
 \begin{figure}[ht!]
 
-  \begin{center}
+\begin{center}
 <<fig_glyc, eval=TRUE, echo=FALSE, fig=TRUE>>=
 plot(hd)
 @ 
