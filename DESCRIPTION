@@ -1,6 +1,6 @@
 Package: BiGGR
 Type: Package
-Title: Creates an interface to the BiGG database, provides a framework for simulation and produces flux graphs
+Title: Constraint based modeling in R using metabolic reconstruction databases.
 Version: 1.1.5
 Date: 2013-12-12
 Author: Anand K. Gavai, Hannes Hettling
