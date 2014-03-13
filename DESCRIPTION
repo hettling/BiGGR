@@ -6,7 +6,7 @@ Version: 1.1.6
 Date: 2013-12-12
 Author: Anand K. Gavai, Hannes Hettling
 Maintainer: Anand K. Gavai <anand.gavai@bioinformatics.nl>, Hannes
-        Hettling <j.hettling@vu.nl>
+        Hettling <hannes.hettling@naturalis.nl>
 Depends: R (>= 2.14.0), rsbml, hyperdraw, LIM
 Imports: hypergraph
 Description: This package provides an interface to simulate metabolic
