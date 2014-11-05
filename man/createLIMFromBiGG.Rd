@@ -6,16 +6,16 @@
 \title{Create a LIM model object from a BiGG database file}
 
 \description{Creates a LIM model object from a file containing reactions
-  extreacted from BiGG to be run for simulations of metabolic fluxes}
+extreacted from BiGG to be run for simulations of metabolic fluxes}
 
 \usage{createLIMFromBiGG(reactions.filename, ...)}
 
 \arguments{
 
-  \item{reactions.filename}{file which contains the reactions extracted
-    from the BiGG database}
-  \item{...}{arguments passed to createLIMfromSBML}
-  
+\item{reactions.filename}{file which contains the reactions extracted
+from the BiGG database}
+\item{...}{arguments passed to createLIMfromSBML}
+
 }
 \references{Soetaert K, van Oevelen D (2009). LIM: Linear Inverse Model examples and solution methods.
 R package version 1.3}
@@ -25,7 +25,7 @@ R package version 1.3}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-  \code{\link{createLIMFromSBML}}
+\code{\link{createLIMFromSBML}}
 }
 
 \examples{
@@ -41,15 +41,15 @@ eq <- list(equation_var, equation_value)
 ##range  of  possible  fluxes for R_PYK 
 constraint <- list("R_PYK", 0, 1000)  
 externals  <-  c("glc_c",  "pyr_c",  "h_c","nad_c",
-                 "nadh_c",  "pi_c",  "fad_m",  "fadh2_m",
-                 "o2_c",  "adp_c",  "atp_c",  "nadp_c",
-                 "co2_c",  "o2_c",  "gdp_c",  "gtp_c")
+			 "nadh_c",  "pi_c",  "fad_m",  "fadh2_m",
+			 "o2_c",  "adp_c",  "atp_c",  "nadp_c",
+			 "co2_c",  "o2_c",  "gdp_c",  "gtp_c")
 
 ##build LIM model from reactions file in package examples
 path <- system.file("extdata", "Reactions.txt", package="BiGGR")
 limfile.name <- tempfile()
 createLIMFromBiGG(path, maximize, equations=eq, constraints=constraint,
-                  externals=externals, file.name=limfile.name)
+			  externals=externals, file.name=limfile.name)
 
 }
 \keyword{Linear Inverse Models}

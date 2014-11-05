@@ -14,13 +14,12 @@ Thiele I, Swainston N, et al.,"A community-driven global reconstruction
 of human metabolism", Nature Biotechnology 31, 419-425 (2013), doi:10.1038/nbt.2488
 }
 
-
 \examples{
 
 \dontrun{
 ##The dataset was generated as follows:
 ##MODEL1109130000.xml was downloaded from http://www.ebi.ac.uk/biomodels-main/MODEL1109130000
-Recon2 <- rsbml_read("MODEL1109130000.xml") 
+##Recon2 <- rsbml_read("MODEL1109130000.xml") 
 }
 
 ##load data and get all reaction IDs
