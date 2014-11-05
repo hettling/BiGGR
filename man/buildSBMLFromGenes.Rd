@@ -2,60 +2,60 @@
 \alias{buildSBMLFromGenes}
 
 \title{
-  Build an SBML model for specific genes in a given database
+Build an SBML model for specific genes in a given database
 }
 \description{
-  Creates an SBML model containing all species, reactions and
-  compartments that are associated with (a) specific gene(s) in the
-  database document (e.g. Recon2) passed as an argument. 
+Creates an SBML model containing all species, reactions and
+compartments that are associated with (a) specific gene(s) in the
+database document (e.g. Recon2) passed as an argument. 
 }
 \usage{
 buildSBMLFromGenes(query, database, logical.fun="any")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{query}{a \code{character} or a \code{vector} or \code{list} of
-    \code{character} containing the query genes with identifiers as
-    specified in the database.
-  }
-  \item{database}{an object of class \code{\linkS4class{SBMLDocument}}}
-  \item{logical.fun}{function which specifies the logical
-    relation of the query genes within the reactions
-    (e.g. \code{all} or \code{any}, see details).}
+\item{query}{a \code{character} or a \code{vector} or \code{list} of
+\code{character} containing the query genes with identifiers as
+specified in the database.
+}
+\item{database}{an object of class \code{\linkS4class{SBMLDocument}}}
+\item{logical.fun}{function which specifies the logical
+relation of the query genes within the reactions
+(e.g. \code{all} or \code{any}, see details).}
 }
 \details{
-  The function \code{all} as argument \code{logical.fun}
-  would mean that all genes in the query have to be associated with
-  a certain reaction from the database in order to be included in the returned
-  model. The default \code{any} means that a reaction is included if any
-  of the query genes are associated with it. Custom functions are
-  possible if they take a \code{vector} of type \code{logical} as an argument
-  and return a \code{logical}. The argument of logical.fun is a
-  \code{vector} of type \code{logical} having the same length as the
-  query and for each gene the value is \code{TRUE} if it is associated
-  with a specific reaction. See 'examples' section for an example of a
-  custom function as logical.fun.
+The function \code{all} as argument \code{logical.fun}
+would mean that all genes in the query have to be associated with
+a certain reaction from the database in order to be included in the returned
+model. The default \code{any} means that a reaction is included if any
+of the query genes are associated with it. Custom functions are
+possible if they take a \code{vector} of type \code{logical} as an argument
+and return a \code{logical}. The argument of logical.fun is a
+\code{vector} of type \code{logical} having the same length as the
+query and for each gene the value is \code{TRUE} if it is associated
+with a specific reaction. See 'examples' section for an example of a
+custom function as logical.fun.
 }
 
 \value{
-  a rsbml \code{Model} object containing all reactions, species and
-  compartments that are present in the database and are associated
-  with the query
-  gene(s) or NULL if none of the genes in the database match the query.
+a rsbml \code{Model} object containing all reactions, species and
+compartments that are present in the database and are associated
+with the query
+gene(s) or NULL if none of the genes in the database match the query.
 }
 \references{
-  Thiele, I. et al. Nat Biotech, 2013
+Thiele, I. et al. Nat Biotech, 2013
 }
 \author{
 Anand Gavai, Hannes Hettling
 }
 \note{
-  If the reactions in the database document provided in the argument
-  \code{database} do not contain any "<notes>" with tags with gene information
-  indicated by the string "GENE*ASSOCIATION" (the star stands for any
-  character), 
-  no gene association information can be
-  extracted and thus the returned SBML mdel is empty..
+If the reactions in the database document provided in the argument
+\code{database} do not contain any "<notes>" with tags with gene information
+indicated by the string "GENE*ASSOCIATION" (the star stands for any
+character), 
+no gene association information can be
+extracted and thus the returned SBML mdel is empty..
 
 %%  ~~further notes~~
 }
@@ -63,8 +63,8 @@ Anand Gavai, Hannes Hettling
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-  \code{\link{buildSBMLFromPathways}}
-  \code{\link{extractGeneAssociations}}
+\code{\link{buildSBMLFromPathways}}
+\code{\link{extractGeneAssociations}}
 }
 \examples{
 

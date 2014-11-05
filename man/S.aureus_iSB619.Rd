@@ -10,9 +10,9 @@ from the \code{rsbml} package.}
 \format{An sbml object of class rsbml}
 
 \details{Note that the files in the BiGG database fail the unit
-  consistancy check of the \code{rsbml_read} function. To avoid
-  unit checking when creating \code{SBML} objects, the substance units in the reaction tags
-  were parsed out from the database SBML files (see example below).}
+consistancy check of the \code{rsbml_read} function. To avoid
+unit checking when creating \code{SBML} objects, the substance units in the reaction tags
+were parsed out from the database SBML files (see example below).}
 
 
 \source{http://bigg.ucsd.edu/bigg/exportSelect.pl}

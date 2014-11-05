@@ -12,8 +12,8 @@ getRates(modelFile)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{modelFile}{The path to a LIM model file as generated for
-    instance from the functions \code{createLIMFromBiGG} or \code{createLIMFromSBML}}
+\item{modelFile}{The path to a LIM model file as generated for
+instance from the functions \code{createLIMFromBiGG} or \code{createLIMFromSBML}}
 }
 
 \value{The value returned is one dimentional numeric vector of flux rates for each reaction }
@@ -21,9 +21,9 @@ getRates(modelFile)
 \author{Anand K. Gavai <anand.gavai@bioinformatics.nl>}
 
 \examples{
-	data("Glycolysis")
-	rates <-getRates(Glycolysis)
-	rates
+data("Glycolysis")
+rates <-getRates(Glycolysis)
+rates
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

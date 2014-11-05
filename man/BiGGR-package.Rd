@@ -7,10 +7,10 @@ Creates an interface to the BiGG database, provides a framework for simulation a
 }
 \description{
 This package provides an interface to simulate metabolic reconstruction 
-	     from the BiGG database(http://bigg.ucsd.edu/) and other metabolic reconstruction 
-	     databases. The package aids in performing flux balance analysis (FBA).  
-	     Metabolic networks and estimated fluxes can be visualized
-	     using hypergraphs.
+	 from the BiGG database(http://bigg.ucsd.edu/) and other metabolic reconstruction 
+	 databases. The package aids in performing flux balance analysis (FBA).  
+	 Metabolic networks and estimated fluxes can be visualized
+	 using hypergraphs.
 }
 \details{
 \tabular{ll}{
@@ -67,20 +67,20 @@ Maintainer: Anand K. Gavai <anand.gavai@bioinformatics.nl>, Hannes Hettling <j.h
 
 \keyword{biggr}
 \seealso{
-  \code{rsbml} 
+\code{rsbml} 
 }
 \examples{
 
 
-library("BiGGR")
+# library("BiGGR")
 
 
 library(help="BiGGR")
 
 ##load reaction identifiers from package examples
 file.name <- system.file("extdata", 
-                         "Glycolysis_TCA_recon1_reactionIDs.txt", 
-                         package="BiGGR")
+					 "Glycolysis_TCA_recon1_reactionIDs.txt", 
+					 package="BiGGR")
 reaction.ids <- scan(file.name, what=" ")
 
 ##load database
@@ -94,10 +94,10 @@ maximize <- "R_ATPS4m - R_NDPK1m - R_HEX1 - R_PFK - R_PGK + R_PYK"
 
 ##specify the external metabolites of the system
 externals <- c("M_glc_DASH_D_e", "M_lac_DASH_L_e",
-               "M_ala_DASH_L_e", "M_gln_DASH_L_c", "M_h2o_e",
-               "M_co2_e", "M_o2_e", "M_h_e", "M_pi_c",
-               "M_o2s_m", "M_nh4_m", "M_adp_c",
-               "M_atp_c", "M_nadp_c", "M_nadph_c", "M_h_c")
+		   "M_ala_DASH_L_e", "M_gln_DASH_L_c", "M_h2o_e",
+		   "M_co2_e", "M_o2_e", "M_h_e", "M_pi_c",
+		   "M_o2s_m", "M_nh4_m", "M_adp_c",
+		   "M_atp_c", "M_nadp_c", "M_nadph_c", "M_h_c")
 ##specify the values of following fluxes: 
 ##R_GLCt1r=0.4, R_O2t=2.4, R_L_LACt2r=R_GLNtm=0
 
@@ -108,18 +108,18 @@ eqns <- list(equation.vars, equation.values)
 ##create LIM file 
 limfile.name <- tempfile()
 createLIMFromSBML(sbml.model, maximize, equations=eqns,
-                  externals=externals, file.name=limfile.name)
+			  externals=externals, file.name=limfile.name)
 
 rates <- getRates(limfile.name)
 
 relevant.species <- c("M_glc_DASH_D_c", "M_g6p_c", "M_f6p_c", 
-                      "M_fdp_c", "M_dhap_c", "M_g3p_c", 
-                      "M_13dpg_c", "M_3pg_c", "M_2pg_c", 
-                      "M_pep_c", "M_pyr_c")
+				  "M_fdp_c", "M_dhap_c", "M_g3p_c", 
+				  "M_13dpg_c", "M_3pg_c", "M_2pg_c", 
+				  "M_pep_c", "M_pyr_c")
 ##generate graphical representation
 hd <- sbml2hyperdraw(sbml.model, rates=rates, 
-                     relevant.species=relevant.species, 
-                     layoutType="dot", plt.margins=c(20, 0, 20, 0))
+				 relevant.species=relevant.species, 
+				 layoutType="dot", plt.margins=c(20, 0, 20, 0))
 
 ##plot hypergraph
 plot(hd)
