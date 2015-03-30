@@ -2,6 +2,13 @@
 \title{NEWS file for the BiGGR package}
 \encoding{UTF-8}
 
+\section{Changes in version 1.3.4}{
+  \itemize{
+    \item BiGGR publication is now available at PLoS ONE! Use
+    citation("BiGGR") to see how to correctly cite BiGGR.  
+  }
+}
+
 \section{Changes in version 1.1.5}{
   \itemize{
   Three new functions
