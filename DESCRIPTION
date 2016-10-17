@@ -1,7 +1,7 @@
 Package: BiGGR
 Type: Package
 Title: Constraint based modeling in R using metabolic reconstruction databases
-Version: 1.9.1
+Version: 1.10.0
 Date: 2014-03-11
 Author: Anand K. Gavai, Hannes Hettling
 Maintainer: Anand K. Gavai <anand.gavai@bioinformatics.nl>, Hannes
