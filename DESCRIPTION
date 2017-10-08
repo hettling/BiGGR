@@ -19,4 +19,3 @@ URL: http://www.bioconductor.org/
 Copyright: see inst/COPYRIGHTS for the license of the BiGG database
 LazyLoad: yes
 biocViews: Systems Biology,Pathway, Network,GraphAndNetwork,Visualization,Metabolomics
-Packaged: 2014-10-14 03:29:12 UTC; biocbuild
