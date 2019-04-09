@@ -1,13 +1,13 @@
 Package: BiGGR
 Type: Package
 Title: Constraint based modeling in R using metabolic reconstruction databases
-Version: 1.6.0
-Date: 2014-03-11
+Version: 1.19.0
+Date: 2019-04-10
 Author: Anand K. Gavai, Hannes Hettling
 Maintainer: Anand K. Gavai <anand.gavai@bioinformatics.nl>, Hannes
  Hettling <hannes.hettling@naturalis.nl>
 Depends: R (>= 2.14.0), rsbml, hyperdraw, LIM,stringr
-Imports: hypergraph
+Imports: hypergraph, limSolve
 Description: This package provides an interface to simulate metabolic
         reconstruction from the BiGG database(http://bigg.ucsd.edu/)
         and other metabolic reconstruction databases. The package facilitates
@@ -18,5 +18,4 @@ License: file LICENSE
 URL: http://www.bioconductor.org/
 Copyright: see inst/COPYRIGHTS for the license of the BiGG database
 LazyLoad: yes
-biocViews: Systems Biology,Pathway, Network,GraphAndNetwork,Visualization,Metabolomics
-Packaged: 2014-10-14 03:29:12 UTC; biocbuild
+biocViews: Systems Biology,Pathway,Network,GraphAndNetwork, Visualization,Metabolomics
