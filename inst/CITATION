@@ -1,0 +1,13 @@
+citHeader("Please cite BiGGR as follows")
+
+citEntry(entry="Article",
+        title = "Using Bioconductor Package BiGGR for Metabolic Flux Estimation Based on Gene Expression Changes in Brain",
+        author = personList(as.person(c("Anand K. Gavai", "Farahaniza Supandi", "Hannes Hettling", "Paul Murrell", "Jack AM Leunissen", "Johannes HGM van Beek"))),
+        journal = "PLoS ONE",
+        year = "2015",
+        volume = "10",
+        number = "3",
+        doi    = "doi:10.1371/journal.pone.0119016",
+        pages = "e0119016",
+
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("phangorn")
