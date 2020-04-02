@@ -58,8 +58,9 @@ hypergraph framework using the hyperdraw \cite{MurrellXXXX} package.
 BiGGR is installed as follows from the R console:
 
 <<e, eval=FALSE, echo=TRUE>>=
-source("http://bioconductor.org/biocLite.R")
-biocLite("BiGGR")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("BiGGR")
 @ 
 
 BiGGR depends on the Bioconductor packages rsbml \cite{Lawrence2013}, hyperdraw \cite{MurrellXXXX} (which in turn requires the package
